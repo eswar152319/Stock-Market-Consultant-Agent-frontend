@@ -1,5 +1,7 @@
+// src/App.jsx
 import React, { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import StockNews from "./StockNews"; // ✅ Import StockNews
 
 // ----------------- Format Ticker Helper -----------------
 const formatTicker = (ticker) => {
@@ -143,7 +145,7 @@ export default function App() {
   const [portfolioInput, setPortfolioInput] = useState("");
   const [portfolioAnalysis, setPortfolioAnalysis] = useState([]);
 
-  // Usage tracking (from backend)
+  // Usage tracking
   const [usage, setUsage] = useState({ advices: 0, portfolios: 0, bill: 0 });
 
   const fetchUsage = async () => {
@@ -302,7 +304,7 @@ export default function App() {
 
         {/* Right Section - Chatbot & Portfolio Analysis */}
         <div className="w-[380px] border border-gray-700 bg-gray-900 rounded p-4 min-h-[600px] flex flex-col overflow-y-auto">
-          <h2 className="text-xl font-semibold mb-2">🤖 AI Stock Chatbot</h2>
+          <h2 className="text-xl font-semibold mb-2">🤖 AI Pixel Pirates </h2>
           <button
             onClick={fetchChatbot}
             className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded mb-4"
@@ -321,6 +323,9 @@ export default function App() {
               <p>🛑 <strong>Stop-loss:</strong> {analysis.stop_loss}</p>
               <p>🎯 <strong>Target:</strong> {analysis.target}</p>
               <p className="text-green-600 font-medium">💡 {analysis.advice}</p>
+
+              {/* ✅ News for manual stock */}
+              <StockNews symbol={analysis.ticker} />
             </div>
           )}
 
@@ -343,6 +348,9 @@ export default function App() {
                     <p>🛑 <b>Stop-loss:</b> {a.stop_loss}</p>
                     <p>🎯 <b>Target:</b> {a.target}</p>
                     <p className="text-green-600 font-medium">💡 {a.advice}</p>
+
+                    {/* ✅ News for each stock in portfolio */}
+                    <StockNews symbol={a.ticker} />
                   </div>
                 ))}
               </div>
